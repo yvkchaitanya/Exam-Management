@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, {{ current_user.username }}!</h1>
+
+    {% if is_teacher %}
+        <h2>Teacher Dashboard</h2>
+        <ul>
+            <li><a href="{{ url_for('create_exam') }}">Create Exam</a></li>
+            <li><a href="{{ url_for('add_question', exam_id=1) }}">Add Questions</a></li>
+        </ul>
+
+        <h3>Exams and Student Scores</h3>
+        <ul>
+            {% for exam in exams %}
+                <li>
+                    <h4>{{ exam.title }}</h4>
+                    <ul>
+                        {% for attempt in exam_attempts[exam.id] %}
+                            <li>{{ attempt.student_name }} - Score: {{ attempt.score }} / {{ exam.total_marks }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Student Dashboard</h2>
+        <ul>
+            {% for exam in exams %}
+                <li>
+                    <h3>{{ exam.title }}</h3>
+                    
+                    {% if exam.id in attempted_exam_ids %}
+                        <p><strong>Status:</strong> Already Attempted</p>
+                        <!-- Show the 'View Score' link only after attempting the exam -->
+                        <a href="{{ url_for('view_score', exam_id=exam.id) }}">View Score</a>
+                    {% else %}
+                        <a href="{{ url_for('attempt_exam', exam_id=exam.id) }}">Attempt Exam</a>
+                    {% endif %}
+                    
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Score</title>
+</head>
+<body>
+    <h1>Score for {{ exam.title }}</h1>
+    <p><strong>Your Score:</strong> {{ attempt.score }} / {{ total_marks }}</p>
+    
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

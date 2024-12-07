@@ -1,0 +1,14 @@
+<form method="POST">
+    {% for question in exam.questions %}
+        <div>
+            <p><strong>{{ question.question_text }}</strong></p>
+            {% for option in question.options %}
+                <div>
+                    <input type="radio" name="{{ question.id }}" value="{{ option }}" id="{{ question.id }}-{{ loop.index }}">
+                    <label for="{{ question.id }}-{{ loop.index }}">{{ option }}</label>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>

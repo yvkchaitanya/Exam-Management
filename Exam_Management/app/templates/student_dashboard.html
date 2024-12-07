@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, {{ current_user.username }}!</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <h3>Available Exams</h3>
+    {% if exams %}
+        <ul>
+        {% for exam in exams %}
+            <li><a href="{{ url_for('attempt_exam', exam_id=exam.id) }}">{{ exam.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No exams available at the moment.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, {{ current_user.username }}!</h1>
+
+    {% if current_user.role == 'teacher' %}
+        <h2>Teacher Dashboard</h2>
+        <ul>
+            <li><a href="{{ url_for('create_exam') }}">Create New Exam</a></li>
+            <li><a href="{{ url_for('add_question', exam_id=1) }}">Add Question to Exam</a></li>
+        </ul>
+    {% else %}
+        <h2>Student Dashboard</h2>
+        <!-- Add student-specific actions here -->
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
